@@ -6,17 +6,23 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pollo {
     public partial class Form1 : Form {
+        private static int MOUSE_STATE = 0;
+        private Point myLocation = new Point();
+
         private int MODE;
         private const int TODO = 1, DOING = 2, DONE = 3, BLOCK = 4;
         string FILE_HEADER = "D:\\WALLO\\";
         string FILE_TRAILER = ".dat";
 
-        public Form1() {
+        public Form1()
+        {
+            CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
         }
@@ -75,18 +81,7 @@ namespace Pollo {
 
             SaveFile.Close();
         }
-
-        private void panel1_DragDrop(object sender, DragEventArgs e) {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            foreach (var file in files) {
-                MessageBox.Show(file);
-            }
-        }
-
-        private void panel1_DragEnter(object sender, DragEventArgs e) {
-            e.Effect = DragDropEffects.All;
-        }
-
+        
         private void txtAddToDo_KeyDown(object sender, KeyEventArgs e) {
 
             if (e.KeyCode == Keys.Enter) {
@@ -130,9 +125,8 @@ namespace Pollo {
             }
         }
 
-        private void button1_Click(object sender, EventArgs e) {
+        private void toolstripExit_Click(object sender, EventArgs e) {
             Application.Exit();
-
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -142,6 +136,13 @@ namespace Pollo {
             readFile(FILE_HEADER + "Doing" + FILE_TRAILER, DOING);
             readFile(FILE_HEADER + "Done" + FILE_TRAILER, DONE);
             readFile(FILE_HEADER + "Block" + FILE_TRAILER, BLOCK);
+            new Thread(() =>
+            {
+                FirebaseConnect fb = new FirebaseConnect();
+                fb.InitFirebase();
+                fb.pushData("Dai ca Phong muon nam");
+            }).Start();
+           
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
@@ -150,5 +151,23 @@ namespace Pollo {
             writeFile(FILE_HEADER + "Done" + FILE_TRAILER, DONE);
             writeFile(FILE_HEADER + "Block" + FILE_TRAILER, BLOCK);
         }
+
+        private void mouseDownEvent(object sender, MouseEventArgs e) {
+            MOUSE_STATE = 1;
+            myLocation.X = e.X;
+            myLocation.Y = e.Y;
+        }
+
+        private void mouseMoveEvent(object sender, MouseEventArgs e) {
+            if (MOUSE_STATE == 1)
+                this.SetDesktopLocation(MousePosition.X - myLocation.X, MousePosition.Y - myLocation.Y);
+        }
+
+
+
+        private void mouseUpEvent(object sender, MouseEventArgs e) {
+            MOUSE_STATE = 0;
+        }
+
     }
 }

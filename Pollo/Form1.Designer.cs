@@ -46,13 +46,21 @@
             this.txtBlock = new Bunifu.Framework.UI.BunifuMetroTextbox();
             this.lbxBlock = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextProgram = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolstripHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolstripExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolstripConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextOption.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.contextProgram.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lbxToDo
@@ -235,9 +243,9 @@
             // 
             this.groupBox4.Controls.Add(this.txtBlock);
             this.groupBox4.Controls.Add(this.lbxBlock);
-            this.groupBox4.Location = new System.Drawing.Point(817, 79);
+            this.groupBox4.Location = new System.Drawing.Point(817, 85);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(253, 378);
+            this.groupBox4.Size = new System.Drawing.Size(253, 372);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Bị lỡ";
@@ -273,34 +281,79 @@
             // 
             this.label1.Font = new System.Drawing.Font("TomFool", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(840, 9);
+            this.label1.Location = new System.Drawing.Point(844, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(230, 64);
+            this.label1.Size = new System.Drawing.Size(230, 51);
             this.label1.TabIndex = 0;
             this.label1.Text = "WALLO";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(85, 11);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // notifyIcon1
             // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon1.BalloonTipText = "Bấm để vào cài đặt";
+            this.notifyIcon1.BalloonTipTitle = "Thông báo";
+            this.notifyIcon1.ContextMenuStrip = this.contextProgram;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "Wallo";
+            this.notifyIcon1.Text = "Bấm để vào cái đặt chính";
             this.notifyIcon1.Visible = true;
+            // 
+            // contextProgram
+            // 
+            this.contextProgram.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolstripConfig,
+            this.toolstripHelp,
+            this.toolstripExit});
+            this.contextProgram.Name = "contextMenuStrip1";
+            this.contextProgram.Size = new System.Drawing.Size(135, 70);
+            // 
+            // toolstripHelp
+            // 
+            this.toolstripHelp.Name = "toolstripHelp";
+            this.toolstripHelp.Size = new System.Drawing.Size(134, 22);
+            this.toolstripHelp.Text = "Hướng dẫn";
+            // 
+            // toolstripExit
+            // 
+            this.toolstripExit.Name = "toolstripExit";
+            this.toolstripExit.Size = new System.Drawing.Size(134, 22);
+            this.toolstripExit.Text = "Thoát";
+            this.toolstripExit.Click += new System.EventHandler(this.toolstripExit_Click);
+            // 
+            // toolstripConfig
+            // 
+            this.toolstripConfig.Name = "toolstripConfig";
+            this.toolstripConfig.Size = new System.Drawing.Size(134, 22);
+            this.toolstripConfig.Text = "Cấu hình";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::Pollo.Properties.Resources.move_32;
+            this.pictureBox2.Location = new System.Drawing.Point(12, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(34, 32);
+            this.pictureBox2.TabIndex = 4;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mouseDownEvent);
+            this.pictureBox2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mouseMoveEvent);
+            this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mouseUpEvent);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Pollo.Properties.Resources.exit_32;
+            this.pictureBox1.Location = new System.Drawing.Point(52, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(34, 32);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.toolstripExit_Click);
             // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
             this.ClientSize = new System.Drawing.Size(1078, 476);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -317,6 +370,9 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.contextProgram.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -343,8 +399,13 @@
         private Bunifu.Framework.UI.BunifuMetroTextbox txtAddDone;
         private Bunifu.Framework.UI.BunifuMetroTextbox txtBlock;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip contextProgram;
+        private System.Windows.Forms.ToolStripMenuItem toolstripConfig;
+        private System.Windows.Forms.ToolStripMenuItem toolstripHelp;
+        private System.Windows.Forms.ToolStripMenuItem toolstripExit;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 
